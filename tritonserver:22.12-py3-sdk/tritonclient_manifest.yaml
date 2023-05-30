@@ -1,0 +1,23 @@
+spec:
+  container:
+  - name: tritonclient
+    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-py3-sdk
+    volumeMounts:
+    - name: tm-stage
+      mountPath: /tm_stage
+    command:
+    - uvicorn
+    args:
+    - triton_client:app
+    - --app-dir=/tm_stage
+    - --host=0.0.0.0
+    - --port=8080
+  volume:
+  - name: tm-stage
+    source: "@TOPIC_MODELING.PROD.TM_STAGE"
+  endpoint:
+  - name: tritonclient
+    port: 8080
+    public: true
+
+#docker build --platform linux/amd64 -t sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-py3-sdk .

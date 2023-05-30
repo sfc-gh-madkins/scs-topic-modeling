@@ -1,0 +1,31 @@
+name: "topic_modeling"
+backend: "python"
+max_batch_size: 100
+input [
+  {
+    name: "INPUT0"
+    data_type: TYPE_INT64
+    dims: [ 1 ]
+  }
+]
+input [
+  {
+    name: "INPUT1"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  }
+]
+output [
+  {
+    name: "OUTPUT0"
+    data_type: TYPE_INT64
+    dims: [ 1 ]
+  }
+]
+output [
+  {
+    name: "OUTPUT1"
+    data_type: TYPE_FP32
+    dims: [ 768 ]
+  }
+]
