@@ -1,5 +1,11 @@
 name: "identity_model"
 backend: "python"
+instance_group [
+  {
+    count: 4
+    kind: KIND_GPU
+  }
+]
 max_batch_size: 100
 input [
   {
