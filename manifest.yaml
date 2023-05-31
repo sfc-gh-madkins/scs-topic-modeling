@@ -1,0 +1,54 @@
+spec:
+  container:
+  - name: tritonclient
+    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-py3-sdk
+    volumeMounts:
+    - name: tm-stage
+      mountPath: /tm_stage
+    command:
+    - uvicorn
+    args:
+    - triton_client:app
+    - --app-dir=/tm_stage
+    - --host=0.0.0.0
+    - --port=8080
+    - --workers=20
+  - name: tritonserver
+    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-pyt-python-py3
+    volumeMounts:
+    - name: tm-stage
+      mountPath: /tm_stage
+    env:
+      SNOWFLAKE_MOUNTED_STAGE_PATH: /tm_stage
+    command:
+    - bash
+    args:
+    - -c
+#    - tritonserver --model-repository=/tm_stage/model_repository
+    - CUDA_VISIBLE_DEVICES=0,1 tritonserver --model-repository=/tm_stage/model_repository --backend-config=python,shm-default-byte-size=4194304 #64mb max shared memory
+  - name: nvidia-notebook
+    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8
+    volumeMounts:
+    - name: tm-stage
+      mountPath: /rapids/notebooks/tm_stage
+    env:
+      SNOWFLAKE_MOUNTED_STAGE_PATH: /rapids/notebooks/tm_stage
+  volume:
+  - name: tm-stage
+    source: "@TOPIC_MODELING.PROD.TM_STAGE"
+  endpoint:
+  - name: tritonserver-http
+    port: 8000
+    public: true
+  - name: tritonserver-grpc
+    port: 8001
+    public: true
+  - name: tritonserver-prometheus
+    port: 8002
+    public: true
+  - name: tritonclient
+    port: 8080
+    public: true
+  - name: rapidsai-notebook
+    port: 8888
+    public: true
