@@ -1,7 +1,7 @@
 spec:
   container:
   - name: tritonserver
-    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-pyt-python-py3
+    image: temptest002038-servicesnow.registry-dev.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-pyt-python-py3
     volumeMounts:
     - name: tm-stage
       mountPath: /tm_stage
@@ -26,4 +26,4 @@ spec:
     port: 8002
     public: true
 
-#docker build --platform linux/amd64 -t sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-pyt-python-py3 .
+#docker build --platform linux/amd64 -t temptest002038-servicesnow.registry-dev.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-pyt-python-py3 .

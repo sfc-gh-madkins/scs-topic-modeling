@@ -1,7 +1,7 @@
 spec:
   container:
   - name: nvidia-notebook
-    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8
+    image: temptest002038-servicesnow.registry-dev.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8
     volumeMounts:
     - name: tm-stage
       mountPath: /rapids/notebooks/tm_stage
@@ -15,4 +15,4 @@ spec:
     port: 8888
     public: true
 
-#docker build --platform linux/amd64 -t sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8 .
+#docker build --platform linux/amd64 -t temptest002038-servicesnow.registry-dev.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8 .

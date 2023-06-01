@@ -3,9 +3,10 @@ backend: "python"
 max_batch_size: 1000000
 instance_group [
   {
-    count: 2
-    kind: KIND_GPU
-  }
+      count: 2
+      kind: KIND_GPU
+      gpus: [ 1 ]
+    }
 ]
 input [
   {

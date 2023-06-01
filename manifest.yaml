@@ -1,7 +1,7 @@
 spec:
   container:
   - name: tritonclient
-    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-py3-sdk
+    image: temptest002038-servicesnow.registry-dev.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-py3-sdk
     volumeMounts:
     - name: tm-stage
       mountPath: /tm_stage
@@ -14,7 +14,7 @@ spec:
     - --port=8080
     - --workers=20
   - name: tritonserver
-    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-pyt-python-py3
+    image: temptest002038-servicesnow.registry-dev.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-pyt-python-py3
     volumeMounts:
     - name: tm-stage
       mountPath: /tm_stage
@@ -27,7 +27,7 @@ spec:
 #    - tritonserver --model-repository=/tm_stage/model_repository
     - CUDA_VISIBLE_DEVICES=0,1 tritonserver --model-repository=/tm_stage/model_repository --backend-config=python,shm-default-byte-size=4194304 #64mb max shared memory
   - name: nvidia-notebook
-    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8
+    image: temptest002038-servicesnow.registry-dev.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8
     volumeMounts:
     - name: tm-stage
       mountPath: /rapids/notebooks/tm_stage
