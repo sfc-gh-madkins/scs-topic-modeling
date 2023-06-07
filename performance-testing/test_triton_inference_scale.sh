@@ -1,0 +1,2 @@
+python test_triton_inference_performance.py &
+python test_triton_inference_performance.py &

@@ -1,0 +1,1 @@
+python test_raw_inference_performance.py --device=3 &

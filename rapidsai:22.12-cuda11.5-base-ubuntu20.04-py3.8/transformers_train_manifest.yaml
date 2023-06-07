@@ -1,0 +1,16 @@
+spec:
+  container:
+  - name: nvidia-train
+    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-base-ubuntu20.04-py3.8
+    volumeMounts:
+    - name: tm-stage
+      mountPath: /tm_stage
+    env:
+      SNOWFLAKE_MOUNTED_STAGE_PATH: /tm_stage
+    command:
+    - python /tm_stage/train.py
+  volume:
+  - name: tm-stage
+    source: "@TOPIC_MODELING.PROD.TM_STAGE"
+
+#docker build --platform linux/amd64 -t sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-base-ubuntu20.04-py3.8 .
