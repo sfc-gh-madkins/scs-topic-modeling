@@ -1,0 +1,107 @@
+name: "topic_modeling_ensemble"
+platform: "ensemble"
+max_batch_size: 250
+input [
+  {
+    name: "INPUT0"
+    data_type: TYPE_INT64
+    dims: [ 1 ]
+  },
+  {
+    name: "INPUT1"
+    data_type: TYPE_STRING
+    dims: [ 1 ]
+  }
+]
+output [
+  {
+    name: "OUTPUT0"
+    data_type: TYPE_INT64
+    dims: [ 1 ]
+  },
+  {
+    name: "OUTPUT1"
+    data_type: TYPE_FP32
+    dims: [ 768 ]
+  }
+]
+ensemble_scheduling {
+ step [
+   {
+    model_name: "preprocess"
+    model_version: 1
+    input_map [
+      {
+      key: "INPUT0"
+      value: "INPUT0"
+    }, 
+    {
+      key: "INPUT1"
+      value: "INPUT1"
+    }
+    ]
+    output_map [
+      {
+      key: "OUTPUT0"
+      value: "OUTPUT0"
+    },
+    {
+      key: "input_ids"
+      value: "input_ids"
+    },
+    {
+      key: "attention_mask"
+      value: "attention_mask"
+    }    
+    ]
+  },
+  {
+    model_name: "topic_modeling_onnx_only"
+    model_version: 1
+    input_map [
+      {
+      key: "input_ids"
+      value: "input_ids"
+    },
+    {
+      key: "attention_mask"
+      value: "attention_mask"
+    }
+    ]
+    output_map [
+      {
+      key: "output_0"
+      value: "output_0"
+    },
+    {
+      key: "output_1"
+      value: "output_1"
+    }
+    ]
+  },
+  {
+    model_name: "postprocess"
+    model_version: 1
+    input_map [
+      {
+      key: "output_0"
+      value: "output_0"
+    },
+    {
+      key: "output_1"
+      value: "output_1"
+    },
+    {
+      key: "attention_mask"
+      value: "attention_mask"
+    }
+    ]
+    output_map [
+    {
+      key: "OUTPUT1"
+      value: "OUTPUT1"
+    }
+    ]
+  }
+ ]
+}

@@ -41,11 +41,13 @@ def run(device):
 
     session = Session.builder.configs(connection_params).create()
 
+
     query = '''
     select
-        REVIWER_TEXT
+        REVIEW
     from
-        "TOPIC_MODELING"."PROD"."TEST";
+        "TOPIC_MODELING"."PROD"."MUSIC_STORE_REVIEWS"
+    limit 100000
 
     '''
 
@@ -55,7 +57,7 @@ def run(device):
 
     model_gpu = SentenceTransformer('all-mpnet-base-v2', device=f'cuda:{device}')
     start = datetime.now()
-    emb = model_gpu.encode(df['REVIWER_TEXT'].tolist(), batch_size=250)
+    emb = model_gpu.encode(df['REVIEW'].tolist(), batch_size=1000)
     end = datetime.now()
     print(end-start)
 

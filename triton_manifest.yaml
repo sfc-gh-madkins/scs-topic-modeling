@@ -24,8 +24,8 @@ spec:
     - bash
     args:
     - -c
-#    - tritonserver --model-repository=/tm_stage/model_repository
-    - CUDA_VISIBLE_DEVICES=0,1,2,3 tritonserver --model-repository=/tm_stage/model_repository --backend-config=python,shm-default-byte-size=15749216  #64mb max shared memory
+    - tritonserver --model-repository=/tm_stage/model_repository
+#    - CUDA_VISIBLE_DEVICES=0,1,2,3 tritonserver --model-repository=/tm_stage/model_repository --backend-config=python,shm-default-byte-size=15749216  #64mb max shared memory
   - name: nvidia-notebook
     image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8
     volumeMounts:

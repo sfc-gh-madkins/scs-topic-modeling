@@ -31,9 +31,9 @@ session = Session.builder.configs(connection_params).create()
 
 query = '''
 select
-    REVIWER_TEXT
+    REVIEWER
 from
-    "TOPIC_MODELING"."PROD"."TEST";
+    "TOPIC_MODELING"."PROD"."MUSIC_STORE_REVIEWS_TEST"
 
 '''
 
