@@ -52,3 +52,21 @@ put file:///Users/madkins/Documents/github_repos/scs-topic-modeling/tritonserver
 
 put file:///Users/madkins/Documents/github_repos/scs-topic-modeling/tritonserver:22.12-py3-sdk/tritonclient_manifest.yaml
 @tm_stage auto_compress=false overwrite=true;
+
+
+/* FINAL DEMO NOTEBOOKS AND ADDITIONAL DOCKERFILE/MANIFEST */
+
+-- notebooks
+put file:///home/nicholasb/NVIDIA/snowflake/snowpark/snowpark-containers/scs-topic-modeling/data_scientist_workflow.ipynb
+@tm_stage auto_compress=false overwrite=true;
+
+put file:///home/nicholasb/NVIDIA/snowflake/snowpark/snowpark-containers/scs-topic-modeling/ml_engineer_workflow.ipynb
+@tm_stage auto_compress=false overwrite=true;
+
+-- Dockerfile
+put file:///home/nicholasb/NVIDIA/snowflake/snowpark/snowpark-containers/scs-topic-modeling/rapidsai:23.04-cuda11.8-runtime-ubuntu22.04-py3.8/Dockerfile
+@tm_stage auto_compress=false overwrite=true;
+
+-- manifest
+put file:///home/nicholasb/NVIDIA/snowflake/snowpark/snowpark-containers/scs-topic-modeling/rapidsai:23.04-cuda11.8-runtime-ubuntu22.04-py3.8/data_scientist_manifest.yaml
+@tm_stage auto_compress=false overwrite=true;
