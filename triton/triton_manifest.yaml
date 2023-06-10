@@ -3,7 +3,7 @@ spec:
   - name: tritonclient
     image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-py3-sdk
     volumeMounts:
-    - name: tm-stage
+    - name: scs-topic-modeling
       mountPath: /scs_topic_modeling
     command:
     - uvicorn
@@ -16,7 +16,7 @@ spec:
   - name: tritonserver
     image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-py3
     volumeMounts:
-    - name: tm-stage
+    - name: scs-topic-modeling
       mountPath: /scs_topic_modeling
     env:
       SNOWFLAKE_MOUNTED_STAGE_PATH: /scs_topic_modeling
@@ -29,12 +29,12 @@ spec:
   - name: nvidia-notebook
     image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8
     volumeMounts:
-    - name: tm-stage
+    - name: scs-topic-modeling
       mountPath: /rapids/notebooks/scs_topic_modeling
     env:
       SNOWFLAKE_MOUNTED_STAGE_PATH: /rapids/notebooks/scs_topic_modeling
   volume:
-  - name: tm-stage
+  - name: scs-topic-modeling
     source: "@TOPIC_MODELING.PROD.SCS_TOPIC_MODELING"
   endpoint:
   - name: tritonserver-http
