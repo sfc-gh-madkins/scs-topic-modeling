@@ -4,19 +4,19 @@ spec:
     image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-base-ubuntu20.04-py3.8
     volumeMounts:
     - name: tm-stage
-      mountPath: /tm_stage
+      mountPath: /scs_topic_modeling
     env:
-      SNOWFLAKE_MOUNTED_STAGE_PATH: /tm_stage
+      SNOWFLAKE_MOUNTED_STAGE_PATH: /scs_topic_modeling
     command:
     - bash
     args:
     - -c
-    - cd tm_stage
+    - cd scs_topic_modeling
     - touch 1.txt
     - ls
   volume:
   - name: tm-stage
-    source: "@TOPIC_MODELING.PROD.TM_STAGE"
+    source: "@TOPIC_MODELING.PROD.SCS_TOPIC_MODELING"
 
 #docker build --platform linux/amd64 -t sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-base-ubuntu20.04-py3.8 .
 #docker build --platform linux/amd64 -t temptest002038-servicesnow.registry-dev.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-base-ubuntu20.04-py3.8 .

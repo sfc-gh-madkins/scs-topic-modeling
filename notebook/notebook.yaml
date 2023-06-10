@@ -1,7 +1,7 @@
 spec:
   container:
   - name: data-scientist-workflow
-    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapids_topicmodeling:release
+    image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:23.04-cuda11.8-runtime-ubuntu22.04-py3.8
     volumeMounts:
     - name: tm-stage
       mountPath: /rapids/notebooks/tm_stage
