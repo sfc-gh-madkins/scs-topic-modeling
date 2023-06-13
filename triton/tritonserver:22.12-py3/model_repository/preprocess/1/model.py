@@ -31,8 +31,8 @@ class TritonPythonModel:
         """
         logger = pb_utils.Logger
 
-        model_path = "/workspace/all-mpnet-base-v2"
-        
+        model_path = os.environ['SNOWFLAKE_MOUNTED_STAGE_PATH']+"/notebook/topic-modeling/fine-tuned-model"
+
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
 
         self.decode = lambda x: x.decode('utf-8', 'ignore')

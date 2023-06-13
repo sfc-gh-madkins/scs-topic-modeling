@@ -4,16 +4,11 @@ spec:
     image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-base-ubuntu20.04-py3.8
     volumeMounts:
     - name: scs-topic-modeling
-      mountPath: /scs_topic_modeling
+      mountPath: /scs-topic-modeling
     env:
-      SNOWFLAKE_MOUNTED_STAGE_PATH: /scs_topic_modeling
+      SNOWFLAKE_MOUNTED_STAGE_PATH: /scs-topic-modeling/notebook
     command:
-    - bash
-    args:
-    - -c
-    - cd scs_topic_modeling
-    - touch 1.txt
-    - ls
+    - python train.py
   volume:
   - name: scs-topic-modeling
     source: "@TOPIC_MODELING.PROD.SCS_TOPIC_MODELING"

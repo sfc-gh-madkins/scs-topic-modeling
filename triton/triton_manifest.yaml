@@ -4,12 +4,12 @@ spec:
     image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-py3-sdk
     volumeMounts:
     - name: scs-topic-modeling
-      mountPath: /scs_topic_modeling
+      mountPath: /scs-topic-modeling
     command:
     - uvicorn
     args:
     - triton_client:app
-    - --app-dir=/scs_topic_modeling/tritonserver:22.12-py3-sdk
+    - --app-dir=/scs-topic-modeling/tritonserver:22.12-py3-sdk
     - --host=0.0.0.0
     - --port=8080
     - --workers=10
@@ -17,22 +17,22 @@ spec:
     image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/tritonserver:22.12-py3
     volumeMounts:
     - name: scs-topic-modeling
-      mountPath: /scs_topic_modeling
+      mountPath: /scs-topic-modeling
     env:
-      SNOWFLAKE_MOUNTED_STAGE_PATH: /scs_topic_modeling
+      SNOWFLAKE_MOUNTED_STAGE_PATH: /scs-topic-modeling
     command:
     - bash
     args:
     - -c
-    - tritonserver --model-repository=/scs_topic_modeling/triton/tritonserver:22.12-py3/model_repository
-#    - CUDA_VISIBLE_DEVICES=0,1,2,3 tritonserver --model-repository=/scs_topic_modeling/triton/tritonserver:22.12-py3/model_repository --backend-config=python,shm-default-byte-size=15749216  #64mb max shared memory
+#    - tritonserver --model-repository=/scs-topic-modeling/triton/tritonserver:22.12-py3/model_repository
+    - CUDA_VISIBLE_DEVICES=0,1 tritonserver --model-repository=/scs-topic-modeling/triton/tritonserver:22.12-py3/model_repository --backend-config=python,shm-default-byte-size=15749216  #64mb max shared memory
   - name: nvidia-notebook
     image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8
     volumeMounts:
     - name: scs-topic-modeling
-      mountPath: /rapids/notebooks/scs_topic_modeling
+      mountPath: /rapids/notebooks/scs-topic-modeling
     env:
-      SNOWFLAKE_MOUNTED_STAGE_PATH: /rapids/notebooks/scs_topic_modeling
+      SNOWFLAKE_MOUNTED_STAGE_PATH: /rapids/notebooks/scs-topic-modeling
   volume:
   - name: scs-topic-modeling
     source: "@TOPIC_MODELING.PROD.SCS_TOPIC_MODELING"

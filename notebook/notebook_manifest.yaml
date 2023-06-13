@@ -4,12 +4,12 @@ spec:
     image: sfengineering-servicesnow.registry.snowflakecomputing.com/topic_modeling/prod/tm/rapidsai:23.04-cuda11.8-runtime-ubuntu22.04-py3.8
     volumeMounts:
     - name: scs-topic-modeling
-      mountPath: /rapids/notebooks/tm_stage
+      mountPath: /rapids/notebooks/scs-topic-modeling
     env:
-      SNOWFLAKE_MOUNTED_STAGE_PATH: /rapids/notebooks/tm_stage
+      SNOWFLAKE_MOUNTED_STAGE_PATH: /rapids/notebooks/scs-topic-modeling
   volume:
   - name: scs-topic-modeling
-    source: "@TOPIC_MODELING.PROD.TM_STAGE"
+    source: "@TOPIC_MODELING.PROD.SCS_TOPIC_MODELING"
   endpoint:
   - name: rapidsai-datascience-notebook
     port: 8888

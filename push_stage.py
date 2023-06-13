@@ -39,7 +39,7 @@ if __name__ == '__main__':
             ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE');
     '''
 
-    session.sql(query).collect()
+    #session.sql(query).collect()
 
     for file in result:
         query = f'''
