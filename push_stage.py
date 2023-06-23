@@ -28,14 +28,14 @@ if __name__ == '__main__':
         'password': password,
         'role': 'SERVICESNOW_USER_ROLE',
         'warehouse': 'MADKINS',
-        'database': 'TOPIC_MODELING',
+        'database': 'SPCS_DEMO',
         'schema': 'PROD'
     }
 
     session = Session.builder.configs(connection_params).create()
 
     query = '''
-        create or replace stage scs_topic_modeling
+        create or replace stage snowpark_container_demo
             ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE');
     '''
 
@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
     for file in result:
         query = f'''
-            put file://{file} @scs_topic_modeling{file[:file.rfind('/')].replace(os.getcwd(),'')}
+            put file://{file} @snowpark_container_demo{file[:file.rfind('/')].replace(os.getcwd(),'')}
             auto_compress=false overwrite=true;
         '''
         print(file)

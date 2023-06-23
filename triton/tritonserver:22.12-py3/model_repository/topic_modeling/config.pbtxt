@@ -1,6 +1,6 @@
 name: "topic_modeling"
 backend: "python"
-max_batch_size: 250
+max_batch_size: 25000
 dynamic_batching {
   max_queue_delay_microseconds: 500000
 }

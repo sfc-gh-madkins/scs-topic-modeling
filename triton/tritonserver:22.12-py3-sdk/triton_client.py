@@ -19,8 +19,12 @@ app = FastAPI()
 async def get_root():
     return {"Hello": "World"}
 
-@app.post("/inference_topic_modeling")
-async def post_root(payload: dict):
+@app.post("/identity")
+async def post_identity(payload: dict):
+    return payload
+
+@app.post("/inference_snowpark_triton")
+async def post_inference_topic_modeling(payload: dict):
     start = datetime.now()
     logger = logging.getLogger("examples.identity_python.client")
     logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(name)s: %(message)s")
@@ -60,6 +64,8 @@ async def post_root(payload: dict):
     end = datetime.now()
     logger.info(f"client full: {end-start}")
     return {'data': return_list}
+
+
 
 
 if __name__ == "__main__":

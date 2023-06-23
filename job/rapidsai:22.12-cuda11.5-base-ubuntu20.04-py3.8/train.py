@@ -11,7 +11,7 @@ def get_token():
         return f.read()
 
 def train():
-
+    print(os.environ['SNOWFLAKE_MOUNTED_STAGE_PATH'])
     connection_params = {
         'host': os.environ['SNOWFLAKE_HOST'],
         'port': os.environ['SNOWFLAKE_PORT'],
@@ -21,18 +21,18 @@ def train():
         'token': get_token(),
         'role': 'SERVICESNOW_USER_ROLE',
         'warehouse': 'MADKINS',
-        'database': 'TOPIC_MODELING',
+        'database': 'SPCS_DEMO',
         'schema': 'PROD'
     }
 
     session = Session.builder.configs(connection_params).create()
 
-    model_gpu = SentenceTransformer('all-mpnet-base-v2', device='cuda')
+    model_gpu = SentenceTransformer('all-mpnet-base-v2', device='cuda:0')
 
     # We'd use more examples in the real-world scenario.
     train_examples = [
         InputExample(
-            texts=['My Martin 0-16NY is a beautiful piece of craftsmanship.', 'My guitar is a beautiful piece of craftsmanship.'], label=0.95
+            texts=['My Martin 0-16NY is a beautiful piece of craftsmanship.', 'My guitar is a beautiful piece of craftsmanship.'], label=0.7
         ),
         InputExample(
             texts=['My Martin 0-16NY is a beautiful piece of craftsmanship.', 'James walked quickly through the forest.'], label=0.1
@@ -47,7 +47,7 @@ def train():
             texts=['Baking is a great way to relax.', 'Guitar is an important instrument for rock and roll bands'], label=0.1
         ),
         InputExample(
-            texts=['My Martin 0-16NY is a beautiful piece of craftsmanship.', 'My guitar is a beautiful piece of craftsmanship.'], label=0.95
+            texts=['My Martin 0-16NY is a beautiful piece of craftsmanship.', 'My guitar is a beautiful piece of craftsmanship.'], label=0.8
         ),
         InputExample(
             texts=['My Martin 0-16NY is a beautiful piece of craftsmanship.', 'James walked quickly through the forest.'], label=0.1
@@ -62,7 +62,7 @@ def train():
             texts=['Baking is a great way to relax.', 'Guitar is an important instrument for rock and roll bands'], label=0.1
         ),
         InputExample(
-            texts=['My Martin 0-16NY is a beautiful piece of craftsmanship.', 'My guitar is a beautiful piece of craftsmanship.'], label=0.95
+            texts=['My Martin 0-16NY is a beautiful piece of craftsmanship.', 'My guitar is a beautiful piece of craftsmanship.'], label=0.8
         ),
         InputExample(
             texts=['My Martin 0-16NY is a beautiful piece of craftsmanship.', 'James walked quickly through the forest.'], label=0.1
@@ -83,7 +83,7 @@ def train():
 
     model_gpu.fit(train_objectives=[(train_dataloader, train_loss)], epochs=100, warmup_steps=100)
 
-    model_gpu.save(os.environ['SNOWFLAKE_MOUNTED_STAGE_PATH']+"/topic-modeling/fine-tuned-model")
+    model_gpu.save(os.environ['SNOWFLAKE_MOUNTED_STAGE_PATH']+"/fine-tuned-model")
 
     return None
 

@@ -1,0 +1,14 @@
+spec:
+  container:
+  - name: gpu-train-workflow
+    image: sfengineering-servicesnow.registry.snowflakecomputing.com/spcs_demo/prod/tm/rapidsai:22.12-cuda11.5-runtime-ubuntu20.04-py3.8
+    volumeMounts:
+    - name: snowpark-container-demo
+      mountPath: /rapids/notebooks/snowpark-container-demo
+  volume:
+  - name: snowpark-container-demo
+    source: "@SPCS_DEMO.PROD.SNOWPARK_CONTAINER_DEMO"
+  endpoint:
+  - name: rapidsai-datascience-notebook
+    port: 8888
+    public: true

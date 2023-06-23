@@ -27,8 +27,8 @@ class TritonPythonModel:
           * model_name: Model name
         """
         logger = pb_utils.Logger
-
-        model_path = os.environ['SNOWFLAKE_MOUNTED_STAGE_PATH']+"/topic-modeling/fine-tuned-model"
+        #/rapids/notebooks/snowpark-container-demo
+        model_path = os.environ['SNOWFLAKE_MOUNTED_STAGE_PATH']+"/notebook/fine-tuned-model"
         self.model = SentenceTransformer(model_path)
 
         self.decode = lambda x: x.decode('utf-8', 'ignore')
