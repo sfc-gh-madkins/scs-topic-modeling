@@ -1,0 +1,15 @@
+spec:
+  container:
+  - name: mosaicml
+    image: sfengineering-servicesnow.registry.snowflakecomputing.com/spcs_demo/prod/tm/deepspeed:v10
+    volumeMounts:
+    - name: snowpark-container-demo
+      mountPath: /snowpark-container-demo
+    command:
+    - bash
+    args:
+    - -c
+    - composer -n 8 /snowpark-container-demo/deepspeed/job/train.py
+  volume:
+  - name: snowpark-container-demo
+    source: "@SPCS_DEMO.PROD.SNOWPARK_CONTAINER_DEMO"

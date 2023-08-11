@@ -1,0 +1,17 @@
+spec:
+  container:
+  - name: jupyterlab
+    image: sfengineering-servicesnow.registry.snowflakecomputing.com/spcs_demo/prod/tm/deepspeed:v10
+    env:
+      JUPYTER_ENABLE_LAB: "yes"
+      JUPYTER_TOKEN: "docker"
+    volumeMounts:
+    - name: snowpark-container-demo
+      mountPath: /snowpark-container-demo
+  volume:
+  - name: snowpark-container-demo
+    source: "@SPCS_DEMO.PROD.SNOWPARK_CONTAINER_DEMO"
+  endpoints:
+  - name: "ui"
+    port: 8888
+    public: true
